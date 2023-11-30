@@ -15,7 +15,7 @@ var index = 0;
 
 let secondsLeft = 60
 
-countDown.setAttribute("style", "font-size: 30px; color: white; text-align:right; margin:20px; font-weight: 700")
+countDown.setAttribute("style", "font-size: 30px; color: white; text-align:right; margin:20px 0 0 0; font-weight: 700")
 questionSlot.setAttribute("style","font-size: 40px; color: rgb(1, 1, 121); border-bottom: 5px solid rgb(1, 1, 121); font-weight: 700; padding-bottom: 20px; margin-bottom: 50px");
 // buttonStyle.setAttribute("style","font-size: 30px");
 
@@ -91,7 +91,7 @@ gameTitle.textContent= "Web API Quiz";
 function startGame(){
     index = 0;
     score = 0;
-    var secondsLeft = 60;
+    secondsLeft = 60;
     startButton.classList.add('hide');
     questionSlot.classList.remove('hide');
     choicesClass.classList.remove("hide");
@@ -149,7 +149,8 @@ function rightAnswer(event){
         yourSmart.classList.add("Thats-right");
         score++;
     }else{
-        
+
+        secondsLeft = secondsLeft - 10;
         yourSmart.classList.add("Thats-wrong");
         
     }
@@ -208,6 +209,9 @@ function setTime() {
         
         if(secondsLeft === 0) {
             // Stops execution of action at set interval
+            questionSlot.classList.add('hide');
+            choicesClass.classList.add('hide');
+            yourScore();
             clearInterval(gameTime);
             // Calls function to create and append image
         }
