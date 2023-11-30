@@ -186,8 +186,12 @@ var newScore = {
 }
 highScores.push(newScore);
 localStorage.setItem("scores",JSON.stringify(highScores));
-console.log(newScore);
-scoreToShow = newScore;
+
+var lastScore = JSON.parse(localStorage.getItem("score"));
+document.querySelector(".scorelast").textContent = newScore.initials + newScore.score;
+
+console.log(lastScore);
+
 }
 
 function setTime() {
@@ -213,8 +217,8 @@ function showScore(){
     choicesClass.classList.add('hide');
     nextButton.classList.add("hide");
     countDown.classList.add("hide");
-    document.getElementById("scorelist").textContent = scoreToShow;
 
+  
 }
 var goBack = document.getElementById("goBack");
 goBack.addEventListener("click",startGame);
