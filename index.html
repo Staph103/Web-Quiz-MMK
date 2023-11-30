@@ -9,22 +9,24 @@
 </head>
 
 <body>
+    <div id="Count-Down"></div>
     <div class="gameBox">
         <h1 id="game-title"></h1>
         <button id="start">Start</button>
         <div class = ""></div>
-            <h2 id="quiz-questions">Question</h2>
-            <div class="Choices">
-                <button class="choicesButton">Choice 1</button>
-                <button class="choicesButton">Choice 2</button>
-                <button class="choicesButton">choice 3</button>
-                <button class="choicesButton">choice 4</button>
+            <h2 class = "hide" id="quiz-questions">Question</h2>
+            <div class="Choices hide">
+            
             </div>
             <div>
-                <button id="next">Next</button>
+                <button class="hide" id="next">Next</button>
             </div>
 
-
+            <div class="yourscore hide">
+                <h1>Final Score <span id="score"></span></h1>
+                <input id="ranking"/>
+                <button id="submit">Log Score</button>
+            </div>
     </div>
 
 
