@@ -12,10 +12,8 @@ var viewHighScore = document.querySelector(".viewhighscore");
 var score = 0;
 var index = 0;
 var scoreToShow;
+var secondsLeft = 0;
 
-let secondsLeft = 60;
-
-countDown.setAttribute("style", "font-size: 50px; color: red; text-align:right; margin:0px 60px 0 0; font-weight: 800;")
 questionSlot.setAttribute("style","font-size: 40px; color: rgb(1, 1, 121); border-bottom: 5px solid rgb(1, 1, 121); font-weight: 700; padding-bottom: 20px; margin-bottom: 50px");
 // buttonStyle.setAttribute("style","font-size: 30px");
 
@@ -81,15 +79,15 @@ gameTitle.textContent= "Web API Quiz";
 function startGame(){
     index = 0;
     score = 0;
-    secondsLeft = 60;
-    startButton.classList.add('hide');
+    secondsLeft = 20;
     questionSlot.classList.remove('hide');
     choicesClass.classList.remove("hide");
-    gameTitle.classList.add("hide")
-    yourFinalScore.classList.add("hide")
-    countDown.classList.remove("hide")
+    gameTitle.classList.add("hide");
+    startButton.classList.add('hide');
+    yourFinalScore.classList.add("hide");
+    countDown.classList.remove("hide");
     
-    setTime()
+    setTime();
     
     displayQuestion();
     
@@ -164,15 +162,12 @@ function loadNext(){
     if(index < quiz.length){
         displayQuestion();
     }else{
-        questionSlot.classList.add('hide');
-        choicesClass.classList.add('hide');
+        hide();
         yourScore();
     }
 }
 function yourScore(){
-    
-    yourFinalScore.classList.remove("hide");
-    countDown.classList.add("hide");
+
     document.getElementById("score").textContent = score;
     document.getElementById('submit').onclick = saveScore;
 
@@ -188,7 +183,7 @@ highScores.push(newScore);
 localStorage.setItem("scores",JSON.stringify(highScores));
 
 var lastScore = JSON.parse(localStorage.getItem("score"));
-document.querySelector(".scorelast").textContent = newScore.initials + newScore.score;
+document.querySelector(".scorelast").textContent = newScore.initials + " - " + newScore.score;
 
 console.log(lastScore);
 
@@ -203,23 +198,37 @@ function setTime() {
         if(secondsLeft < 0|| secondsLeft == 0) {
             // Stops execution of action at set interval
             clearInterval(gameTime);
-            questionSlot.classList.add('hide');
-            choicesClass.classList.add('hide');
-            nextButton.classList.add("hide");
+            hide();
             yourScore();
            
         }
+        if(secondsLeft <= 10){
+            countDown.setAttribute("style", "font-size: 50px; color: red; text-align:right; margin:0px 60px 0 0; font-weight: 800;")
+
+
+        }else{
+            countDown.setAttribute("style", "font-size: 50px; color: white; text-align:right; margin:0px 60px 0 0; font-weight: 800;")
+
+        }
+
         
     }, 1000);
 }
 function showScore(){
+    hide();
+
+  
+}
+function hide(){
     questionSlot.classList.add('hide');
     choicesClass.classList.add('hide');
     nextButton.classList.add("hide");
     countDown.classList.add("hide");
+    yourFinalScore.classList.remove("hide");
+    countDown.classList.add("hide");
 
-  
 }
+
 var goBack = document.getElementById("goBack");
 goBack.addEventListener("click",startGame);
 startButton.addEventListener("click",startGame);
