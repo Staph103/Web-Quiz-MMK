@@ -12,7 +12,7 @@ body{
     background: white;
     width: 70%;
     max-width: 600px;
-    max-height: 700px;
+    max-height: 750px;
     border-radius: 15px;
     margin: 250px auto ;
     padding: 50px;
@@ -82,7 +82,12 @@ body{
     border-radius: 10px;
     padding: 5px;
 }
-#viewhighscore{
+#goBack{
+    font-size: 20px;
+    border-radius: 10px;
+    padding: 5px;
+}
+.viewhighscore{
     display: flex;
    position: relative;
    bottom: 30px;

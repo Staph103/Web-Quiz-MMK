@@ -7,10 +7,11 @@ var backgroundImg = document.querySelector(".back-img");
 var gameTitle = document.querySelector("#game-title");
 var countDown = document.getElementById("Count-Down");
 var yourFinalScore = document.querySelector(".yourscore");
-var viewHighScore = document.querySelector("#viewhighscore");
+var viewHighScore = document.querySelector(".viewhighscore");
 
 var score = 0;
 var index = 0;
+var scoreToShow;
 
 let secondsLeft = 60;
 
@@ -85,8 +86,8 @@ function startGame(){
     questionSlot.classList.remove('hide');
     choicesClass.classList.remove("hide");
     gameTitle.classList.add("hide")
-    
-    
+    yourFinalScore.classList.add("hide")
+    countDown.classList.remove("hide")
     
     setTime()
     
@@ -186,7 +187,7 @@ var newScore = {
 highScores.push(newScore);
 localStorage.setItem("scores",JSON.stringify(highScores));
 console.log(newScore);
-
+scoreToShow = newScore;
 }
 
 function setTime() {
@@ -202,7 +203,7 @@ function setTime() {
             choicesClass.classList.add('hide');
             nextButton.classList.add("hide");
             yourScore();
-            // Calls function to create and append image
+           
         }
         
     }, 1000);
@@ -211,9 +212,12 @@ function showScore(){
     questionSlot.classList.add('hide');
     choicesClass.classList.add('hide');
     nextButton.classList.add("hide");
-    yourScore.classList.add("hide");
+    countDown.classList.add("hide");
+    document.getElementById("scorelist").textContent = scoreToShow;
 
 }
+var goBack = document.getElementById("goBack");
+goBack.addEventListener("click",startGame);
 startButton.addEventListener("click",startGame);
 nextButton.addEventListener("click",nextButtonFun);
 viewHighScore.addEventListener("click",showScore);
