@@ -1,5 +1,3 @@
-
-
 var questionSlot = document.querySelector("#quiz-questions");
 var choicesClass = document.querySelector(".Choices");
 var buttonStyle = document.querySelector(".choicesButton");
@@ -9,13 +7,14 @@ var backgroundImg = document.querySelector(".back-img");
 var gameTitle = document.querySelector("#game-title");
 var countDown = document.getElementById("Count-Down");
 var yourFinalScore = document.querySelector(".yourscore");
+var viewHighScore = document.querySelector("#viewhighscore");
 
 var score = 0;
 var index = 0;
 
-let secondsLeft = 60
+let secondsLeft = 60;
 
-countDown.setAttribute("style", "font-size: 30px; color: white; text-align:right; margin:20px 0 0 0; font-weight: 700")
+countDown.setAttribute("style", "font-size: 50px; color: red; text-align:right; margin:0px 60px 0 0; font-weight: 800;")
 questionSlot.setAttribute("style","font-size: 40px; color: rgb(1, 1, 121); border-bottom: 5px solid rgb(1, 1, 121); font-weight: 700; padding-bottom: 20px; margin-bottom: 50px");
 // buttonStyle.setAttribute("style","font-size: 30px");
 
@@ -51,36 +50,26 @@ var quiz = [
 
     },
     {
-        question: "Who created this game",
+        question: "Who is Mustapha's instructor",
         answers: [
-            {choice: "Andrew", correct: false},
-            {choice: "Diego", correct: false},
-            {choice: "Mustapha", correct: true},
-            {choice: "Alisa", correct: false},
+            {choice: "Chris", correct: false},
+            {choice: "Meg", correct: false},
+            {choice: "Diego", correct: true},
+            {choice: "Bill", correct: false},
         ]
 
     },
     {
-        question: "Who created this game",
+        question: "Whats is Mustapha's zodiac sign",
         answers: [
-            {choice: "Andrew", correct: false},
-            {choice: "Diego", correct: false},
-            {choice: "Mustapha", correct: true},
-            {choice: "Alisa", correct: false},
+            {choice: "Cancer", correct: false},
+            {choice: "Aries", correct: true},
+            {choice: "Pisces", correct: false},
+            {choice: "Leo", correct: false},
         ]
 
     }
 ]
-
-
-
-
-// document.querySelector("#start").addEventListener("click", function (event){
-//         displayQuestion();
-//     })
-// var answers = quiz.choices[index];
-// index = 0;
-
 
 
 document.body.style.backgroundImage = "url('startscreen.webp')";
@@ -96,7 +85,7 @@ function startGame(){
     questionSlot.classList.remove('hide');
     choicesClass.classList.remove("hide");
     gameTitle.classList.add("hide")
-
+    
     
     
     setTime()
@@ -126,11 +115,7 @@ function displayQuestion(options){
         
     })
 }
-function nextQuestion(){
-    // renderBack();
-    
-    
-}
+
 function renderBack(){
     
     nextButton.classList.add("hide")
@@ -142,13 +127,13 @@ function renderBack(){
 function rightAnswer(event){
     
     var yourSmart = event.target;
-    console.log(yourSmart);
+    
     var right = yourSmart.dataset.correct;
     console.log(right);
     if (right === "true") {
         yourSmart.classList.add("Thats-right");
         score++;
-    }else{
+    }else if(secondsLeft){
 
         secondsLeft = secondsLeft - 10;
         yourSmart.classList.add("Thats-wrong");
@@ -162,7 +147,7 @@ function rightAnswer(event){
     });
     nextButton.classList.remove("hide");
     
-    console.log(right);
+    
 }
 function nextButtonFun(){
     console.log("hit");
@@ -186,6 +171,7 @@ function loadNext(){
 function yourScore(){
     
     yourFinalScore.classList.remove("hide");
+    countDown.classList.add("hide");
     document.getElementById("score").textContent = score;
     document.getElementById('submit').onclick = saveScore;
 
@@ -199,6 +185,8 @@ var newScore = {
 }
 highScores.push(newScore);
 localStorage.setItem("scores",JSON.stringify(highScores));
+console.log(newScore);
+
 }
 
 function setTime() {
@@ -207,134 +195,26 @@ function setTime() {
         secondsLeft--;
         countDown.textContent = secondsLeft ;
         
-        if(secondsLeft === 0) {
+        if(secondsLeft < 0|| secondsLeft == 0) {
             // Stops execution of action at set interval
+            clearInterval(gameTime);
             questionSlot.classList.add('hide');
             choicesClass.classList.add('hide');
+            nextButton.classList.add("hide");
             yourScore();
-            clearInterval(gameTime);
             // Calls function to create and append image
         }
         
     }, 1000);
 }
+function showScore(){
+    questionSlot.classList.add('hide');
+    choicesClass.classList.add('hide');
+    nextButton.classList.add("hide");
+    yourScore.classList.add("hide");
+
+}
 startButton.addEventListener("click",startGame);
 nextButton.addEventListener("click",nextButtonFun);
+viewHighScore.addEventListener("click",showScore);
 
-
-
-
-
-
-// function renderBack(){
-    //     nextButton.style.display = 'none';
-    //     while
-    // }
-    
-    // startGame();
-    
-    
-
-
-
-
-// var heading1Tag = document.querySelector("h1");
-
-// let index = 0;
-
-// var questions = [
-//     {
-//         title: "Whats your name",
-//         choices: ["Mustapha", "Jake", "lisa","Justin"] ,
-//         rightAnswer: "Mustapha"
-//     },
-//     {
-//         title: "Whats your age",
-//         choices: [10, 20, 50,16, 31, 64] ,
-//         rightAnswer: 20,
-//     },
-//     {
-//         title: "Whats your ",
-//         choices: ["Mustapha", "Jake", "lisa","Justin"] ,
-//         rightAnswer: "Mustapha"
-//     },
-// ];
-
-// // //classic function
-// // function myFn (a, b){
-// //     return a + b
-// // };
-// // // Errow function
-// // var myFn = (a, b) => a + b
-
-// displayQuestion();
-
-// document.querySelector("#next").addEventListener("click", function (event){
-//     index++;
-
-//     displayQuestion();
-// })
-    
-// function displayQuestion(index){
-
-//     var currentQuestion = questions[index]
-
-//     document.querySelector("#title").innerHTML = currentQuestion.title
-
-//     var choicesEl = document.querySelector("#choices");
-
-   
-//     if (index = 0) {
-//         choicesEl.children
-        
-//     }
-
-//     currentQuestion.choices.forEach(choice => {
-
-//         var buttons = document.createElement("button")
-//         buttons.innerHTML = choice
-//         choicesEl.appendChild(buttons)
-
-//     });
-// }
-
-
-    
-    
-    
-    
-    
-    
-    
-    
-
-
-
-// Stores user response in variable
-// var tagName = prompt("Please enter an HTML Tag (ex. h1, h2, p, div):", "enter tag");
-
-// if (tagName !== "h1" && tagName !== "h2" && tagName !== "p" && tagName !== "div") {
-//   alert("please enter a valid tag");
-// } else {
-//   // Creates element based on tag entered by user
-//   var tag = document.createElement(tagName);
-
-//   // Adds text content to created tag
-//   tag.textContent = "This was made via prompts. It's a " + tagName + ".";
-  
-//   // Appends tag as child of document body
-//   document.body.appendChild(tag);
-// }
-
-// var nextTag = confirm("Would you like to add another tag?");
-
-// if (nextTag === true) {
-//   var secondTagName = prompt("Please enter another  HTML Tag (ex. h1, h2, p, div):", "enter tag here");
-//   if(secondTagName !== "h1" && secondTagName !== "h2" && secondTagName !== "p" && secondTagName !== "div") {
-//     alert("please enter a valid tag");
-//   } else {
-//     var secondTag = document.createElement(secondTagName);
-//     secondTag.textContent = "This is our second tag via prompts, it's a " + secondTagName + ".";
-//     document.body.appendChild(secondTag);
-//   }
-// }
