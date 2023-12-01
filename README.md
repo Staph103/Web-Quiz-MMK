@@ -38,9 +38,24 @@ THEN I can save my initials and score
 
 
 
-##
+## Assets
+
+
+The following images demonstrates the web application's appearance and functionality:
+
+
+![screenshot](./Images/WebQuizGame.png)
+
+
+
 
 ## Resources
 
+Meg Myers (tutor)
 
-## 
+Utlized previous activites for references with functions and layout
+
+MDN website
+
+W3 School
+
